@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{% static 'Delivery/style.css' %}">
+</head>
+
+<body>
+
+    <div class="cart-page">
+
+        <h1 class="cart-title">🛒 Your Cart</h1>
+
+        <div class="cart-container">
+
+            {% if cart_items %}
+
+            ```
+            {% for item in cart_items %}
+            <div class="cart-item">
+
+                <div class="item-info">
+                    <span class="item-name">{{ item.name }}</span>
+                    <span class="item-price">₹ {{ item.price }}</span>
+                    <div class="qty-box">
+
+                        <a href="/decrease/{{ item.id }}/" class="qty-btn">−</a>
+
+                        <span class="item-qty">{{ item.quantity }}</span>
+
+                        <a href="/increase/{{ item.id }}/" class="qty-btn">+</a>
+
+                    </div>
+                    {% endfor %}
+
+                    <h2>Total: ₹ {{ total }}</h2>
+
+
+
+                    <div class="cart-total">
+                        <h2>Total: ₹ {{ total }}</h2>
+
+                        <a href="/checkout/">
+                            <button class="checkout-btn">
+                                Proceed to Checkout
+                            </button>
+                        </a>
+                    </div>
+
+
+                    {% else %}
+
+
+                    <p style="text-align:center;">Your cart is empty</p>
+
+                    <a href="/" class="browse-btn">Browse Restaurants</a>
+
+
+                    {% endif %}
+
+                </div>
+
+</body>
+
+</html>

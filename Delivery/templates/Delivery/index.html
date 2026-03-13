@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CraveCart</title>
+
+    <link rel="stylesheet" href="{% static 'Delivery/style.css' %}">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/cart/">Cart 🛒 {{ cart_count }}</a>
+            <a href="/my-orders/">📦 My Orders</a>
+        </div>
+
+    </nav>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            CraveCart 🍔
+        </div>
+
+        <div class="nav-links">
+
+            {% if user.is_authenticated %}
+
+            <span>Hi, {{ user.username }}</span>
+
+            <a href="/signout">Logout</a>
+
+            {% else %}
+
+            <a href="/signin">Login</a>
+
+            <a href="/signup">Signup</a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- HERO SECTION -->
+
+    <div class="hero">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search restaurants..." onkeyup="searchRestaurants()">
+        </div>
+
+        <h1>Welcome to CraveCart!! 🍔</h1>
+
+        <p>Order your favorite food from top restaurants</p>
+
+    </div>
+
+
+
+    <!-- RESTAURANTS -->
+
+    <div class="restaurants">
+
+        <h2>Popular Restaurants</h2>
+
+        <div class="restaurant-container">
+
+            {% for restaurant in restaurants %}
+
+            <div class="card restaurant-card">
+
+                <a href="/restaurant/{{ restaurant.id }}/" class="restaurant-link">
+                    <img src="{{ restaurant.image }}" alt="{{ restaurant.name }}">
+                </a>
+
+                <div class="card-content">
+                    <h3>{{ restaurant.name }}</h3>
+                    <p>{{ restaurant.cuisine }}</p>
+                    <p>⭐ {{ restaurant.rating }}</p>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+    <script>
+
+        function searchRestaurants() {
+
+            let input = document.getElementById("searchInput").value.toLowerCase();
+
+            let cards = document.querySelectorAll(".restaurant-card");
+
+            cards.forEach(card => {
+
+                let text = card.innerText.toLowerCase();
+
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

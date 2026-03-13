@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Orders</title>
+    <link rel="stylesheet" href="{% static 'Delivery/style.css' %}">
+</head>
+
+<body class="orders-page">
+
+    <h1 class="orders-title">My Orders...</h1>
+
+    <div class="orders-card">
+
+        {% if orders %}
+
+        {% for order in orders %}
+
+        <div class="order-item">
+
+            <p><b>Order #{{ order.id }}</b></p>
+            <p>{{ order.items }}</p>
+
+            <div class="order-footer">
+                <span>₹ {{ order.total }}</span>
+                <span class="order-status">Preparing</span>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <p class="empty-text">🍔 No orders yet. Start ordering!</p>
+
+        <a href="/" class="browse-btn">Order Food</a>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

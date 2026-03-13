@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ restaurant.name }}</title>
+    <link rel="stylesheet" href="{% static 'Delivery/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Restaurant Header -->
+    <div class="restaurant-header">
+        <h1>{{ restaurant.name }}</h1>
+        <p>⭐ {{ restaurant.rating }} • {{ restaurant.cuisine }}</p>
+    </div>
+
+
+    <!-- Menu Section -->
+
+    <div class="cart-btn-container">
+        <a href="{% url 'cart' %}" class="cart-btn">
+            🛒 View Cart
+        </a>
+    </div>
+
+    <div class="menu-section">
+
+        <h2>Menu</h2>
+
+        {% for item in menus %}
+
+        <div class="menu-card">
+
+            <!-- Menu Details -->
+            <div class="menu-details">
+                <h3>{{ item.name }}</h3>
+                <p class="price">₹ {{ item.price }}</p>
+
+                <a href="{% url 'add_to_cart' item.id %}">
+                    <button class="add-btn">ADD</button>
+                </a>
+            </div>
+
+            <!-- Menu Image -->
+            <div class="menu-image">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="menu-img">
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>
